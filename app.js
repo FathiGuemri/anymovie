@@ -3,8 +3,8 @@ const express = require('express'),
   cors = require('cors'),
   path = require('path'),
   bodyParser = require('body-parser'),
-  helmet = require('helmet'),
-  compression = require('compression'),
+  // helmet = require('helmet'),
+  // compression = require('compression'),
   userRouter = require('./routers/user.router'),
   movieRouter = require('./routers/movies.router'),
   dushbordRouter = require('./routers/dushbord.router'),
@@ -19,8 +19,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cors());
-app.use(helmet());
-app.use(compression()); //Compress all routes
+// app.use(helmet());
+// app.use(compression()); //Compress all routes
 // Make Images "Uploads" Folder Publicly Available
 app.use('/uploads', express.static('uploads'));
 app.use(express.static(path.join(__dirname, 'browser')))
