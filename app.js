@@ -52,11 +52,11 @@ app.set('view engine', 'html');
 //     }
 // })
 
-app.use('/profile', userCont.loginRequired, (req, res) => res.json({ ftouh: 'ftouh' }))
-app.use('/auth', userRouter)
-app.use('/movies', movieRouter)
-app.use('/series', seriesRouter)
-app.use('/dushbord', dushbordRouter)
+// app.use('/profile', userCont.loginRequired, (req, res) => res.json({ ftouh: 'ftouh' }))
+app.use('/api/auth', userRouter)
+app.use('/api/movies', movieRouter)
+app.use('/api/series', seriesRouter)
+app.use('/api/dushbord', dushbordRouter)
 
 app.get('*', (req, res) => {
   res.render('index')
