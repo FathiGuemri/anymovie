@@ -8,7 +8,7 @@ let newUser = User(req.body);
 newUser.hash_password = bcrypt.hashSync(req.body.password, 10)
 newUser.save((err, user) => {
     if (err) {
-        return res.status(400).send({
+        return res.status(401).send({
             message: err
           });
     } else {
@@ -21,12 +21,12 @@ newUser.save((err, user) => {
 exports.sign_in = function(req, res) {
     User.findOne({ email: req.body.email }).then(user => {
         if (!user) {
-            res.status(401).json({ message: 'تسجيل الدخول فشل . المستخدم ليس موجود' });
+            res.json({ message: 'تسجيل الدخول فشل . المستخدم ليس موجود' });
         } else if (user) {
             if (!user.comparePassword(req.body.password)) {
-                res.status(401).json({ message: 'تسجيل الدخول فشل. كلمة مرور خاطئة.' });
+                res.json({message: 'تسجيل الدخول فشل. كلمة مرور خاطئة.' });
             } else {
-                return res.json({
+                 res.json({
                     auth_token: jwt.sign(
                         { email: user.email, fullName: user.fullName, isAdmin: user.isAdmin, _id: user._id}, 'RESTFULAPIs'),
                          success: true

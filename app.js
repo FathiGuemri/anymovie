@@ -23,10 +23,10 @@ app.use(cors());
 // app.use(compression()); //Compress all routes
 // Make Images "Uploads" Folder Publicly Available
 app.use('/uploads', express.static('uploads'));
-app.use(express.static(path.join(__dirname, 'browser')))
+app.use(express.static(path.join(__dirname, 'veiws')))
 
 
-app.set('views', __dirname + '/browser');
+app.set('views', __dirname + '/veiws');
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
