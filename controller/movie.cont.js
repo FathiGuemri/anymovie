@@ -1,13 +1,13 @@
 const {mongoose} = require('../db/mongoos'),
     Movie =  require('../db/models/movie.models');
- 
+
 // get Document movie bay ID
 exports.getMovieById = (req, res) =>{
     Movie.findOne({_id: req.params._id}).then(movie => {
         res.json(movie)
     }).catch(err => {
         res.status(401).json(err)
-    }) 
+    })
 }
 
 // get all docmuent movies
@@ -32,7 +32,7 @@ exports.getMovieByCategoryAndLang = (req, res) => {
 
 exports.getAfterMovie  = (req, res) => {
     Movie.find({}).then(movies => {
-     
+
         res.json(movies[movies.length -1])
     })
 }
@@ -43,45 +43,42 @@ exports.getMovieByLang = (req, res) =>{
     })
 }
 
-// create new document movie 
- 
+// create new document movie
+
 
 
 exports.createMovie = (req, res) =>  {
     let data = req.body
-    const url = req.protocol + '://' + req.get('host')
-    data.imageUrl = url + '/uploads/' + req.file.filename;
+
+    let b64encoded = req.file.buffer.toString('base64');
+    data.imageUrl = "data:" +req.file.mimetype + ";base64," + b64encoded;
+
     let urls =  data.movieUrls.split(',')
     data.movieUrls = urls
     let movie = new Movie(data)
- 
+
     movie.save().then(movie => {
      res.status(200).json( {msg: 'تم اضافت الفيلم بنجاح', movie})
     }).catch(err => {
         console.log(err)
         res.status(401).json({err})
     })
-   console.log(data, req.file)
 }
 
 exports.editeMovisById = (req, res) => {
     let data = req.body;
-    
-    if (req.file) {
-        const url = req.protocol + '://' + req.get('host')
-        data.imageUrl = url + '/uploads/' + req.file.filename;
-    }
-
+    let b64encoded = req.file.buffer.toString('base64');
+    data.imageUrl = "data:" +req.file.mimetype + ";base64," + b64encoded;
     if (data.movieUrls) {
         let urls =  data.movieUrls.split(',')
         data.movieUrls  = urls
     }
-    
+
     Movie.updateOne({_id: req.params._id}, data).then((eiditedMovie) => {
         res.status(200).json({msg :'تم تعديل الفيلم بنجاح', eiditedMovie})
     }).catch(err => res.status(401).json(err))
 
-  
+
 }
 
 exports.deleteMovie = (req, res) => {
@@ -97,4 +94,3 @@ exports.deleteMovie = (req, res) => {
 
 
 
-        

@@ -51,14 +51,14 @@ exports.getAfterSerie = (req, res) => {
 }
 
 
-// // create new document serie 
+// // create new document serie
 
 
 
 exports.createSerie = (req, res) => {
     let data = req.body
-    const url = req.protocol + '://' + req.get('host')
-    data.imageUrl = url + '/uploads/' + req.file.filename;
+    let b64encoded = req.file.buffer.toString('base64');
+    data.imageUrl = "data:" +req.file.mimetype + ";base64," + b64encoded;
     data.allepisodes = eval(data.allepisodes)
     let serie = new Serie(data)
 
@@ -74,10 +74,8 @@ exports.createSerie = (req, res) => {
 exports.editeSerisById = (req, res) => {
     let data = req.body;
 
-    if (req.file) {
-        const url = req.protocol + '://' + req.get('host')
-        data.imageUrl = url + '/uploads/' + req.file.filename;
-    }
+    let b64encoded = req.file.buffer.toString('base64');
+    data.imageUrl = "data:" +req.file.mimetype + ";base64," + b64encoded;
 
 
 
@@ -115,10 +113,10 @@ exports.addEpisode =  async (req, res) => {
             timeEpisode: req.body.timeEpisode
         })
         let episodeDoc = await episode.save()
-        await Serie.updateOne({_id: serieId}, { 
-            $push: { 
-                allepisodes: [new ObjectId(episodeDoc._id)]  
-          } 
+        await Serie.updateOne({_id: serieId}, {
+            $push: {
+                allepisodes: [new ObjectId(episodeDoc._id)]
+          }
   }).then(() => res.json({success: true}))
 
         return
@@ -126,8 +124,8 @@ exports.addEpisode =  async (req, res) => {
         res.json({success: false, err})
     }
 
-        
-       
+
+
 
 
 }
@@ -135,7 +133,7 @@ exports.deleteEpisode = (req, res) => {
     Episode.deleteOne({ _id: req.params.id }).then(() => {
         Serie.updateOne({_id : req.params.serieId}, {
             $pull: {
-                allepisodes: [ObjectId(req.params.id)]  
+                allepisodes: [ObjectId(req.params.id)]
             }
         })
         res.json({ success: true })

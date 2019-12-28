@@ -3,13 +3,11 @@ const express = require('express'),
   cors = require('cors'),
   path = require('path'),
   bodyParser = require('body-parser'),
-  // helmet = require('helmet'),
-  // compression = require('compression'),
+  helmet = require('helmet'),
   userRouter = require('./routers/user.router'),
   movieRouter = require('./routers/movies.router'),
   dushbordRouter = require('./routers/dushbord.router'),
   seriesRouter = require('./routers/series.router'),
-  userCont = require('./controller/user.cont'),
   engines = require('consolidate');
 
 // Setup Express.js
@@ -18,11 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+app.use(helmet());
 app.use(cors());
-// app.use(helmet());
-// app.use(compression()); //Compress all routes
-// Make Images "Uploads" Folder Publicly Available
-app.use('/uploads', express.static('uploads'));
+
 app.use(express.static(path.join(__dirname, 'veiws')))
 
 
