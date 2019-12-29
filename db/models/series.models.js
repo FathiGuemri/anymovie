@@ -22,8 +22,8 @@ let episodeSchema = mongoose.Schema({
 })
 
  let Episode = mongoose.model('episode', episodeSchema)
- exports.Serie = Serie 
-exports.Episode = Episode 
+ exports.Serie = Serie
+exports.Episode = Episode
 
 
 

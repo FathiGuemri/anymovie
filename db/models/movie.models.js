@@ -6,7 +6,7 @@ let movieSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true},
     addedMovie: {  type: Date, default: Date.now },
     timeMovie: { type: String, required: true, },
-    movieUrls: { type: [String], required: true },
+    movieUrls: { type: [{site: String, url: String, imgFromMovie: String}] , required: true },
     lang: { type: String, required: true },
     category: String ,
     videoTube: String,
