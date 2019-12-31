@@ -56,7 +56,6 @@ exports.createMovie = (req, res) => {
   movie.save().then(movie => {
     res.status(200).json({ msg: 'تم اضافت الفيلم بنجاح', movie })
   }).catch(err => {
-    console.log(err)
     res.status(401).json({ err })
   })
 }
