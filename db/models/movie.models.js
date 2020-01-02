@@ -10,6 +10,7 @@ let movieSchema = new mongoose.Schema({
     lang: { type: String, required: true },
     category: String ,
     videoTube: String,
+    isNewMovie:{ type: Boolean, default: false}
 })
 
 let Movie = mongoose.model('movie', movieSchema);

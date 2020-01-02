@@ -82,6 +82,11 @@ exports.deleteMovie = (req, res) => {
   }).catch(err => res.status(401).json(err))
 }
 
+exports.addToNewMovie = (req, res) => {
+    Movie.updateOne({_id: req.params._id}, {isNewMovie: true}).then(m => {
+      res.json({success: true, m})
+    }).catch(err => res.json({success: false, err}))
+}
 
 
 
