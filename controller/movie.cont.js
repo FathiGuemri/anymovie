@@ -61,17 +61,10 @@ exports.createMovie = (req, res) => {
 }
 
 exports.editeMovisById = (req, res) => {
-  let data = req.body;
-  let b64encoded = req.file.buffer.toString('base64');
-  data.imageUrl = "data:" + req.file.mimetype + ";base64," + b64encoded;
-  if (data.movieUrls) {
-    let urls = data.movieUrls.split(',')
-    data.movieUrls = urls
-  }
+  Movie.updateOne({ _id: req.params._id }, req.body).then((eiditedMovie) => {
+    res.json({ msg: 'تم تعديل الفيلم بنجاح', eiditedMovie })
+  }).catch(err => res.json(err))
 
-  Movie.updateOne({ _id: req.params._id }, data).then((eiditedMovie) => {
-    res.status(200).json({ msg: 'تم تعديل الفيلم بنجاح', eiditedMovie })
-  }).catch(err => res.status(401).json(err))
 
 
 }
@@ -83,11 +76,18 @@ exports.deleteMovie = (req, res) => {
 }
 
 exports.addToNewMovie = (req, res) => {
-    Movie.updateOne({_id: req.params._id}, {isNewMovie: true}).then(m => {
+    Movie.updateOne({_id: req.params._id}, {isNewMovie: req.body.isNewMovie}).then(m => {
       res.json({success: true, m})
     }).catch(err => res.json({success: false, err}))
-}
+    console.log(req.body.isNewMovie)
+  }
 
+exports.deleteToNewMovie = (req, res) => {
+  Movie.updateOne({_id: req.params._id}, {isNewMovie: req.body.isNewMovie}).then(m => {
+    res.json({success: true, m})
+  }).catch(err => res.json({success: false, err}))
+  console.log(req.body.isNewMovie)
+}
 
 
 

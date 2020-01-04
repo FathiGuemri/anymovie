@@ -8,6 +8,7 @@ const express = require('express'),
   movieRouter = require('./routers/movies.router'),
   dushbordRouter = require('./routers/dushbord.router'),
   seriesRouter = require('./routers/series.router'),
+  dataSiteRouter = require('./routers/dataSite.router'),
   engines = require('consolidate');
 
 // Setup Express.js
@@ -52,6 +53,7 @@ app.use('/api/auth', userRouter)
 app.use('/api/movies', movieRouter)
 app.use('/api/series', seriesRouter)
 app.use('/api/dushbord', dushbordRouter)
+app.use('/api/datasite', dataSiteRouter)
 
 app.get('*', (req, res) => {
   res.render('index')

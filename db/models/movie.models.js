@@ -10,7 +10,9 @@ let movieSchema = new mongoose.Schema({
     lang: { type: String, required: true },
     category: String ,
     videoTube: String,
-    isNewMovie:{ type: Boolean, default: false}
+    isNewMovie:{ type: Boolean},
+    adsOne: String,
+    adsTow: String
 })
 
 let Movie = mongoose.model('movie', movieSchema);

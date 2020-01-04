@@ -9,6 +9,9 @@ let seriesSchema = new mongoose.Schema({
     addedSeries: { type: Date, default: Date.now },
     category: String,
     videoTube: String,
+    adsOne: String,
+    adsTow: String,
+    adsThree: String,
     allepisodes:  [{type: mongoose.Schema.Types.ObjectId, ref: 'episode'}]
 })
 

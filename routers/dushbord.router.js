@@ -13,9 +13,10 @@ var upload = multer({ storage: storage })
 var upload = multer({ storage: storage })
 
 router.post('/movies/add', upload.single('image'), movieCont.createMovie)
-router.put('/movies/edit/:_id', upload.single('image'), movieCont.editeMovisById)
+router.put('/movies/edit/:_id', movieCont.editeMovisById)
 router.delete('/movies/delete/:_id', movieCont.deleteMovie)
-router.delete('/movies/add-to-new/:_id', movieCont.addToNewMovie)
+router.patch('/movies/add-to-new/:_id', movieCont.addToNewMovie)
+router.patch('/movies/delete-to-new/:_id', movieCont.deleteToNewMovie)
 
 
 router.post('/series/serie/add', upload.single('image'), seriesCont.createSerie)

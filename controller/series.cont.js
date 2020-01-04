@@ -64,7 +64,10 @@ exports.createSerie = (req, res) => {
     description: req.body.description,
     imageUrl,
     category: req.body.category,
-    videoTube: req.body.videoTube
+    videoTube: req.body.videoTube,
+    adsOne: req.body.adsOne,
+    adsTow: req.body.adsTow,
+    adsThree: req.body.adsThree,
   }
   let serie = new Serie(data)
 
@@ -79,9 +82,11 @@ exports.createSerie = (req, res) => {
 
 exports.editeSerisById = (req, res) => {
   let data = req.body;
+if (req.file) {
 
   let b64encoded = req.file.buffer.toString('base64');
   data.imageUrl = "data:" + req.file.mimetype + ";base64," + b64encoded;
+}
 
 
 

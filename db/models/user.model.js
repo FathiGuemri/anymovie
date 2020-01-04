@@ -23,7 +23,7 @@ const bcrypt =require('bcryptjs')
         default: Date.now
     },
     isAdmin: {
-        default: true,
+        default: false,
         type: Boolean
     }
 
