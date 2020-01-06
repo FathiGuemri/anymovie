@@ -25,7 +25,8 @@ const bcrypt =require('bcryptjs')
     isAdmin: {
         default: false,
         type: Boolean
-    }
+    },
+    notifcationReq: [{type: mongoose.Schema.Types.ObjectId, ref: 'notifcation'}]
 
 })
 UserSchema.methods.comparePassword = function(password) {

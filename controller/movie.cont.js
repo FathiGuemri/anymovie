@@ -1,5 +1,9 @@
 const { mongoose } = require('../db/mongoos'),
-  Movie = require('../db/models/movie.models');
+  Movie = require('../db/models/movie.models'),
+  Notifcation = require('../db/models/notification.model'),
+  User = require('../db/models/user.model'),
+  ObjectId = require('mongoose').Types.ObjectId;
+
 
 // get Document movie bay ID
 exports.getMovieById = (req, res) => {
@@ -55,6 +59,7 @@ exports.createMovie = (req, res) => {
   let movie = new Movie(data)
   movie.save().then(movie => {
     res.status(200).json({ msg: 'تم اضافت الفيلم بنجاح', movie })
+
   }).catch(err => {
     res.status(401).json({ err })
   })

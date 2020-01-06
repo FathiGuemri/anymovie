@@ -1,7 +1,10 @@
 const {mongoose} = require('../db/mongoos'),
-        bcrypt  = require('bcryptjs')
-        jwt = require('jsonwebtoken');
-        User = require('../db/models/user.model')
+        bcrypt  = require('bcryptjs'),
+        jwt = require('jsonwebtoken'),
+        User = require('../db/models/user.model'),
+        Notification = require('../db/models/notification.model')
+        ObjectId = require('mongoose').Types.ObjectId;
+
 
 exports.register = function(req, res) {
 let newUser = User(req.body);
@@ -53,3 +56,26 @@ exports.isAdmin = function(req, res,  next) {
        return res.status(401).json({message: 'لا يمكن دخول هذه الرابط ,انت لست مسؤول في الموقع'})
     }
 }
+
+
+exports.postNotification = (req, res) => {
+ let notification = new Notification(req.body)
+
+ notification.save().then(n => res.json({success: true, n}))
+ .catch(e => res.json({success: false, e}))
+
+}
+
+exports.getNotification = (req, res) => {
+    Notification.find({}).then(notification => res.json(notification))
+    .catch(e => res.json(e))
+}
+
+
+exports.deleteNotification = (req, res) => {
+  Notification.deleteOne({_id: req.params.id}).then(r => res.json({success: true}))
+  .catch(e => res.json({success:  false, e}))
+}
+
+
+
